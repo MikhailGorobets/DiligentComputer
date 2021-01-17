@@ -7,6 +7,10 @@ set(DILIGENT_NO_DIRECT3D12 ON CACHE BOOL "Disable Direct3D12 backend")
 set(DILIGENT_NO_OPENGL     ON CACHE BOOL "Disable OpenGL/GLES backend")
 set(DILIGENT_NO_METAL      ON CACHE BOOL "Disable Metal backend")
 
+set(GLFW_BUILD_DOCS     OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
 add_subdirectory(ThirdParty)
 
 set(SOURCES Main.cpp)
@@ -23,8 +27,10 @@ endif()
 target_compile_options(VulkanMacOS PRIVATE -DUNICODE -DENGINE_DLL -DVULKAN_SUPPORTED)
 
 target_include_directories(VulkanMacOS PRIVATE "ThirdParty")
+target_include_directories(VulkanMacOS PRIVATE "ThirdParty/glfw/include")
 
-target_link_libraries(VulkanMacOS PRIVATE Diligent-GraphicsEngineVk-shared)
+
+target_link_libraries(VulkanMacOS PRIVATE Diligent-GraphicsEngineVk-shared glfw)
 copy_required_dlls(VulkanMacOS)
 
 
