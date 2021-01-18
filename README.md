@@ -54,7 +54,7 @@ The project will be located in `build/MacOS` folder.
 
 ### Configuring Vulkan Build Environment
 
-By default there is no Vulkan implementation on MacOS. Diligent Engine loads Vulkan dynamically
+By default there is no Vulkan implementation on MacOS. Application loads Vulkan dynamically
 and can use a Vulkan Portability implementation such as [MoltenVK](https://github.com/KhronosGroup/MoltenVK)
 or [gfx-portability](https://github.com/gfx-rs/portability). Install [VulkanSDK](https://vulkan.lunarg.com/sdk/home#mac)
 and make sure that your system is properly configured as described
@@ -90,24 +90,5 @@ Engine will configure the rpath for all applications automatically.
 Last tested LunarG SDK version: 1.2.154.0.
 
 
-### Configuring Vulkan Build Environment
-
-To enable Vulkan on iOS, download and install [VulkanSDK](https://vulkan.lunarg.com/sdk/home#mac). There is no Vulkan loader
-on iOS, and Diligent Engine links directly with MoltenVK XCFramework (see
-[MoltenVk install guide](https://github.com/KhronosGroup/MoltenVK/blob/master/Docs/MoltenVK_Runtime_UserGuide.md#install-as-static-framework-static-library-or-dynamic-library))
-that implements Vulkan on Metal. To enable Vulkan in Diligent Engine on iOS, specify the path to Vulkan SDK 
-when running CMake, for example (assuming that Vulkan SDK is installed at `/LunarG/vulkansdk-macos`):
-
-```cmake
-cmake -DCMAKE_SYSTEM_NAME=iOS -DVULKAN_SDK=/LunarG/vulkansdk-macos -S . -B ./build/iOS -G "Xcode"
-```
-
-By default, the engine links with MoltenVK XCFramework located in LunarG SDK. If this is not desired or an application wants
-to use a framework from a specific location, it can provide the full path to the framework via `MoltenVK_FRAMEWORK` CMake variable.
-
-Refer to [MoltenVK user guide](https://github.com/KhronosGroup/MoltenVK/blob/master/Docs/MoltenVK_Runtime_UserGuide.md#install)
-for more information about MoltenVK installation and usage.
-
-Last tested LunarG SDK version: 1.2.154.0.
 
 
