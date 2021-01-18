@@ -17,6 +17,7 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 #include <Config.h>
+#include <cmath>
 
 
 struct WindowUserDataCallback {
@@ -63,9 +64,7 @@ int main(int argc, char* argv[]) {
 #endif
 
 #ifdef __APPLE__
-       // _GLFWwindowNS* glfwWindowNS = glfwGetCocoaWindow(pWindow.get());
-        void* windowHandle = glfwGetCocoaWindow(pWindow.get());       
-        
+        void* windowHandle = glfwCocoaCreateCALayer(pWindow.get());
 #endif
         Diligent::SwapChainDesc desc = {};
         desc.BufferCount = 2;
