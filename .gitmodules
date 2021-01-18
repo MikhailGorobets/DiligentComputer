@@ -4,7 +4,3 @@
 [submodule "3rd-party/DiligentTools"]
 	path = 3rd-party/DiligentTools
 	url = https://github.com/DiligentGraphics/DiligentTools.git
-[submodule "3rd-party/glfw"]
-	path = 3rd-party/glfw
-	url = https://github.com/glfw/glfw.git
-	ignore = dirty
