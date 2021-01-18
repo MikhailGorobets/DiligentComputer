@@ -1,5 +1,8 @@
 
+#define PLATFORM_MACOS 1
+ 
 #include <DiligentCore/Platforms/interface/PlatformDefinitions.h>
+#include <DiligentCore/Platforms/interface/NativeWindow.h>
 #include <DiligentCore/Common/interface/RefCntAutoPtr.hpp>
 #include <DiligentCore/Graphics/GraphicsEngine/interface/EngineFactory.h>
 #include <DiligentCore/Graphics/GraphicsEngineVulkan/interface/EngineFactoryVk.h>
@@ -15,6 +18,7 @@
 
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
+
 
 int main(int argc, char* argv[]) {
 
@@ -40,8 +44,6 @@ int main(int argc, char* argv[]) {
     auto pEngineFactory = Diligent::GetEngineFactoryVk();
 #endif 
   
-      
-
     {
         Diligent::EngineVkCreateInfo desc = {};
 #ifdef _DEBUG
@@ -56,16 +58,18 @@ int main(int argc, char* argv[]) {
         glfwGetWindowSize(pWindow.get(), &windowWidth, &widnowHeight);
 
 #ifdef WIN32      
-        HWND hwnd = glfwGetWin32Window(pWindow.get());
+        HWND windowHandle = glfwGetWin32Window(pWindow.get());
 #endif
 
 #ifdef __APPLE__
-        void* hwnd = glfwGetCocoaWindow(pWindow.get());
+       // _GLFWwindowNS* glfwWindowNS = glfwGetCocoaWindow(pWindow.get());
+        void* windowHandle = glfwGetCocoaWindow(pWindow.get());
+        
+        
 #endif
 
-
         Diligent::SwapChainDesc desc = {};
-        desc.BufferCount = 3;
+        desc.BufferCount = 2;
         desc.Width = windowWidth;
         desc.Height = widnowHeight;
         desc.ColorBufferFormat = Diligent::TEX_FORMAT_RGBA8_UNORM_SRGB;
@@ -75,12 +79,10 @@ int main(int argc, char* argv[]) {
         desc.Usage = Diligent::SWAP_CHAIN_USAGE_RENDER_TARGET;
         desc.IsPrimary = true;
 
-        pEngineFactory->CreateSwapChainVk(pRenderDevice, pDeviceContext, desc, Diligent::NativeWindow(hwnd), &pSwapChain);
-
+        pEngineFactory->CreateSwapChainVk(pRenderDevice, pDeviceContext, desc, Diligent::NativeWindow(windowHandle), &pSwapChain);
     }
-
-
     
+
     while (!glfwWindowShouldClose(pWindow.get())) {
         glfwPollEvents();
 
