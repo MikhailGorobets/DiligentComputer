@@ -1,9 +1,9 @@
-[submodule "ThirdParty/DiligentCore"]
-	path = ThirdParty/DiligentCore
+[submodule "3rd-party/DiligentCore"]
+	path = 3rd-party/DiligentCore
 	url = https://github.com/DiligentGraphics/DiligentCore.git
-[submodule "ThirdParty/glfw"]
-	path = ThirdParty/glfw
+[submodule "3rd-party/glfw"]
+	path = 3rd-party/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "ThirdParty/DiligentTools"]
-	path = ThirdParty/DiligentTools
+[submodule "3rd-party/DiligentTools"]
+	path = 3rd-party/DiligentTools
 	url = https://github.com/DiligentGraphics/DiligentTools.git
