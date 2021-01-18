@@ -4,3 +4,6 @@
 [submodule "ThirdParty/glfw"]
 	path = ThirdParty/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "ThirdParty/DiligentTools"]
+	path = ThirdParty/DiligentTools
+	url = https://github.com/DiligentGraphics/DiligentTools.git
