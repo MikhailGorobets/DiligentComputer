@@ -34,33 +34,11 @@ navigate to the engine's root folder and run the following command:
 cmake -S . -B ./build/Win64 -G "Visual Studio 16 2019" -A x64
 ```
 
-You can generate Win32 solution that targets Win8.1 SDK using the following command:
-
-```
-cmake -D CMAKE_SYSTEM_VERSION=8.1 -S . -B ./build/Win64_8.1 -G "Visual Studio 16 2019" -A x64
-```
-
-If you use MinGW, you can generate the make files using the command below (note however that the functionalty
-will be limited and that MinGW is not a recommended way to build the engine):
-
-```
-cmake -S . -B ./build/MinGW -D CMAKE_BUILD_TYPE=Release -G "MinGW Makefiles"
-```
 
 :warning: In current implementation, full path to cmake build folder **must not contain white spaces**.
 
 To enable Vulkan validation layers, you will need to download [Vulkan SDK](https://www.lunarg.com/vulkan-sdk/) and add environemt
 variable `VK_LAYER_PATH` that contains path to the *Bin* directory in VulkanSDK installation folder.
-
-Open *DiligentEngine.sln* file in *build/Win64* folder, select configuration and build the engine. Set the desired project
-as startup project (by default, GLTF Viewer will be selected) and run it. 
-
-By default, sample and tutorial applications will show rendering backend selection dialog box. Use the following command line options to force
-D3D11, D3D12, OpenGL, or Vulkan mode: **-mode D3D11**, **-mode D3D12**, **-mode GL**, or **-mode Vk**. If you want to run an application
-outside of Visual Studio environment, the application's assets folder must be set as working directory. (For Visual Studio, this 
-is automatically configured by CMake). Alternatively, you can navigate to the build target or install folder and run the executable from there.
-
-
 
 <a name="build_and_run_macos"></a>
 ## MacOS
