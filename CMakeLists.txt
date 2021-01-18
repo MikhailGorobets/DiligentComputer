@@ -1,6 +1,14 @@
 cmake_minimum_required (VERSION 3.6)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+
+set(CMAKE_XCODE_GENERATE_SCHEME TRUE)
+set(CMAKE_XCODE_SCHEME_MALLOC_SCRIBBLE YES)
+set(CMAKE_XCODE_SCHEME_MALLOC_GUARD_EDGES YES)
+
 project(VulkanMacOS CXX)
+
 
 set(DILIGENT_NO_DIRECT3D11 ON CACHE BOOL "Disable Direct3D11 backend")
 set(DILIGENT_NO_DIRECT3D12 ON CACHE BOOL "Disable Direct3D12 backend")
@@ -31,9 +39,9 @@ target_include_directories(VulkanMacOS PRIVATE "ThirdParty/glfw/include")
 
 
 target_link_libraries(VulkanMacOS PRIVATE Diligent-GraphicsEngineVk-shared glfw)
-copy_required_dlls(VulkanMacOS)
+
+if (WIN32)
+    copy_required_dlls(VulkanMacOS)
+endif()
 
 
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
