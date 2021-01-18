@@ -17,11 +17,6 @@ git submodule update --recursive
 <a name="build_and_run"></a>
 # Build and Run Instructions
 
-Diligent Engine uses [CMake](https://cmake.org/) as a cross-platform build tool. 
-To start using cmake, download the [latest release](https://cmake.org/download/) (3.16 or later is required).
-Another build prerequisite is [Python interpreter](https://www.python.org/downloads/) (3.0 or later is required).
-If after following the instuctions below you have build/run issues, please take a look at [troubleshooting](Troubleshooting.md).
-
 <a name="build_and_run_win32"></a>
 ## Win32
 
