@@ -47,7 +47,7 @@ After you clone the repo, run the following command from the engine's root folde
 (you need to have [CMake](https://cmake.org/) installed on the system):
 
 ```
-cmake -S . -B ./build/MacOS -G "Xcode"
+cmake -S . -B ./build/MacOS -G "Xcode" -T buildsystem=1
 ```
 
 The project will be located in `build/MacOS` folder.
