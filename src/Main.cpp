@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
     auto const WINDOW_HEIGHT = 1280;
 
     glfwInit();  
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)> pWindow(
         glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr),
         glfwDestroyWindow);
@@ -164,6 +165,8 @@ int main(int argc, char* argv[]) {
             Diligent::TextureLoadInfo desc = {};
             desc.BindFlags = Diligent::BIND_SHADER_RESOURCE;
             desc.IsSRGB = true;    
+            desc.Name = "Texture Input";
+            desc.Usage = Diligent::USAGE_IMMUTABLE;
             Diligent::CreateTextureFromFile(RESOURCE_PATH "textures/Lenna.png", desc, pRenderDevice, &pTextureInput);
         }
         
@@ -177,11 +180,12 @@ int main(int argc, char* argv[]) {
             desc.MipLevels = 1;
             desc.SampleCount = 1;
             desc.ArraySize = 1;
-            desc.Name = "Texture Ouput";
+            desc.Name = "Texture Output";
             desc.Usage = Diligent::USAGE_DEFAULT;
             desc.BindFlags = Diligent::BIND_SHADER_RESOURCE | Diligent::BIND_UNORDERED_ACCESS;
             pRenderDevice->CreateTexture(desc, nullptr, &pTextureOutput);
-        }
+        }        
+
     }
 
     Diligent::RefCntAutoPtr<Diligent::IShaderResourceBinding> pSRBComputePSO; {
@@ -213,7 +217,8 @@ int main(int argc, char* argv[]) {
         uint32_t threadGroupsX = static_cast<uint32_t>(std::ceil(pTextureInput->GetDesc().Width  / 8.0f));
         uint32_t threadGroupsY = static_cast<uint32_t>(std::ceil(pTextureInput->GetDesc().Height / 8.0f));
     
-        pDeviceContext->SetPipelineState(pComputePSO);
+
+        pDeviceContext->SetPipelineState(pComputePSO);   
         pDeviceContext->CommitShaderResources(pSRBComputePSO, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
         pDeviceContext->DispatchCompute(Diligent::DispatchComputeAttribs{ threadGroupsX, threadGroupsY, 1 });
         
@@ -221,8 +226,9 @@ int main(int argc, char* argv[]) {
         pDeviceContext->SetPipelineState(pGraphicsPSO);
         pDeviceContext->CommitShaderResources(pSRBGraphicsPSO, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
         pDeviceContext->Draw(Diligent::DrawAttribs{3, Diligent::DRAW_FLAG_NONE, 1, 0, 0});
-        
+    
         pSwapChain->Present(0);
+
     }
 
     glfwTerminate();
