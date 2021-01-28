@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.6)
 
-project(VulkanMacOS CXX)
+project(DiligentComputer CXX)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -30,24 +30,24 @@ configure_file(include/Config.h.in Config.h)
 
 add_subdirectory(3rd-party)
 
-set(SOURCES src/Main.cpp)
+set(SOURCES src/DiligentComputer.cpp)
 
-add_executable(VulkanMacOS ${SOURCES})
+add_library(DiligentComputer STATIC ${SOURCES})
 
 if (APPLE)
-    target_compile_options(VulkanMacOS PRIVATE -DPLATFORM_MACOS -DUNICODE -DENGINE_DLL -DVULKAN_SUPPORTED)
+    target_compile_options(DiligentComputer PRIVATE -DPLATFORM_MACOS -DUNICODE -DVULKAN_SUPPORTED)
 elseif (WIN32)
-    target_compile_options(VulkanMacOS PRIVATE -DPLATFORM_WIN32 -DUNICODE -DENGINE_DLL -DVULKAN_SUPPORTED)
+    target_compile_options(DiligentComputer PRIVATE -DPLATFORM_WIN32 -DUNICODE -DVULKAN_SUPPORTED)
 endif()
 
 
-target_include_directories(VulkanMacOS PRIVATE "3rd-party")
-target_include_directories(VulkanMacOS PRIVATE "3rd-party/glfw/include")
-target_include_directories(VulkanMacOS PRIVATE PRIVATE "${PROJECT_BINARY_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(VulkanMacOS PRIVATE Diligent-GraphicsEngineVk-shared Diligent-TextureLoader glfw)
+target_include_directories(DiligentComputer PRIVATE "3rd-party")
+target_include_directories(DiligentComputer PRIVATE "3rd-party/glfw/include")
+target_include_directories(DiligentComputer PRIVATE PRIVATE "${PROJECT_BINARY_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_link_libraries(DiligentComputer PRIVATE Diligent-GraphicsEngineVk-static Diligent-TextureLoader glfw)
 
 if (WIN32)
-    copy_required_dlls(VulkanMacOS)
+    copy_required_dlls(DiligentComputer)
 endif()
 
 
