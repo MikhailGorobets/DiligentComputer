@@ -77,7 +77,6 @@ int main(int argc, char* argv[]) {
         desc.DefaultStencilValue = 0;
         desc.Usage = Diligent::SWAP_CHAIN_USAGE_RENDER_TARGET;
         desc.IsPrimary = true;
-
         pEngineFactory->CreateSwapChainVk(pRenderDevice, pDeviceContext, desc, Diligent::NativeWindow(windowHandle), &pSwapChain);
      
     }
@@ -226,7 +225,6 @@ int main(int argc, char* argv[]) {
         pDeviceContext->SetPipelineState(pGraphicsPSO);
         pDeviceContext->CommitShaderResources(pSRBGraphicsPSO, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
         pDeviceContext->Draw(Diligent::DrawAttribs{3, Diligent::DRAW_FLAG_NONE, 1, 0, 0});
-    
         pSwapChain->Present(0);
 
     }
