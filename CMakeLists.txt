@@ -26,8 +26,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-configure_file(include/Config.h.in Config.h)
-
 add_subdirectory(3rd-party)
 
 set(SOURCES src/DiligentComputer.cpp)

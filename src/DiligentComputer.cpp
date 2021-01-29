@@ -18,6 +18,11 @@
 struct DiligentContext_T {
     class PSOCache {
     public:
+        PSOCache(Diligent::RefCntAutoPtr<Diligent::IRenderDevice> pDevice, std::string const& shaderPath) {
+            m_pRenderDevice = pDevice;           
+            m_pRenderDevice->GetEngineFactory()->CreateDefaultShaderSourceStreamFactory(shaderPath.c_str(), &m_pShaderSourceFactory);
+        }
+
         auto FindPiplineState(std::string const& fileName, std::string const& kernelName) -> std::optional<Diligent::RefCntAutoPtr<Diligent::IPipelineState>> {
             auto name = fileName + "[" + kernelName + "]";
             return m_PipelineStates.find(name) != m_PipelineStates.end() ? std::make_optional(m_PipelineStates[name]) : std::nullopt;
@@ -55,7 +60,7 @@ struct DiligentContext_T {
     private:
         Diligent::RefCntAutoPtr<Diligent::IRenderDevice> m_pRenderDevice;
         Diligent::RefCntAutoPtr<Diligent::IShaderSourceInputStreamFactory> m_pShaderSourceFactory;
-        std::unordered_map<std::string, Diligent::RefCntAutoPtr<Diligent::IPipelineState>> m_PipelineStates;
+        std::unordered_map<std::string, Diligent::RefCntAutoPtr<Diligent::IPipelineState>> m_PipelineStates = {};
     };
 public:
     DiligentContext_T(DiligentContextDesc const& desc) {
@@ -68,9 +73,7 @@ public:
 #endif
             pEngineFactory->CreateDeviceAndContextsVk(desc, &m_pRenderDevice, &m_pDeviceContext);
         }
-
-        Diligent::RefCntAutoPtr<Diligent::IShaderSourceInputStreamFactory> pShaderSourceFactory;
-        m_pRenderDevice->GetEngineFactory()->CreateDefaultShaderSourceStreamFactory(desc.ShaderPath, &pShaderSourceFactory);
+        m_pPSOCache = std::make_unique<PSOCache>(m_pRenderDevice, desc.ShaderPath);
     }
 
     void ExecuteComputerShader(DiligentComputerDesc const& desc, void* pData) {
