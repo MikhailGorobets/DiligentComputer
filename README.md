@@ -4,14 +4,14 @@
 To get the repository and all submodules, use the following command:
 
 ```
-git clone --recursive https://github.com/MikhailGorobets/VulkanMacOS.git
+git clone --recursive https://github.com/MikhailGorobets/DiligentComputer.git
 ```
 
 When updating existing repository, don't forget to update all submodules:
 
 ```
 git pull
-git submodule update --recursive
+git submodule update --init --recursive
 ```
 
 <a name="build_and_run"></a>
