@@ -40,9 +40,8 @@ endif()
 
 
 target_include_directories(DiligentComputer PRIVATE "3rd-party")
-target_include_directories(DiligentComputer PRIVATE "3rd-party/glfw/include")
 target_include_directories(DiligentComputer PRIVATE PRIVATE "${PROJECT_BINARY_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(DiligentComputer PRIVATE Diligent-GraphicsEngineVk-static Diligent-TextureLoader glfw)
+target_link_libraries(DiligentComputer PRIVATE Diligent-GraphicsEngineVk-static)
 
 if (WIN32)
     copy_required_dlls(DiligentComputer)
